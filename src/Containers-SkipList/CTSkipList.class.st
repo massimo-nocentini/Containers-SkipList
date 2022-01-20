@@ -115,12 +115,16 @@ CTSkipList class >> onSortedCollection: aCollection lowerBound: lower upperBound
 { #category : #accessing }
 CTSkipList >> add: key [
 
-	| predecessors r height newLink |
+	self add: key atHeight: random next
+]
+
+{ #category : #accessing }
+CTSkipList >> add: key atHeight: r [
+
+	| predecessors height newLink |
 	predecessors := self predecessors: key.
 
 	height := self height.
-
-	r := random next.
 
 	newLink := self
 		           add: key

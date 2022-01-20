@@ -28,7 +28,7 @@ CTSkipListTest >> testCrescenzi [
 ]
 
 { #category : #tests }
-CTSkipListTest >> testInspectSkipList [
+CTSkipListTest >> testProfileAdditionOf35 [
 
 	^ self
 		  compiledMethods: { 

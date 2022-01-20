@@ -182,6 +182,14 @@ CTSkipList >> height [
 	^ lists sizeBlock: [ :link | link nextLink ]
 ]
 
+{ #category : #testing }
+CTSkipList >> includes: aKey equalityBlock: eqBlock [
+
+	| link |
+	link := (self predecessors: aKey) value.
+	^ eqBlock value: link nextLink value value: aKey
+]
+
 { #category : #accessing }
 CTSkipList >> lists: anObject [
 

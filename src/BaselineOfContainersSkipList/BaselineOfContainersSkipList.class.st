@@ -15,5 +15,7 @@ BaselineOfContainersSkipList >> baseline: spec [
 			spec repository: 'github://massimo-nocentini/Containers-Essentials' ].
 
 		"Packages"
-		spec package: 'Containers-SkipList' ]
+		spec
+			package: 'Containers-SkipList';
+			package: 'Containers-SkipList-Tests' ]
 ]

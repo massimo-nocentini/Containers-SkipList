@@ -10,16 +10,19 @@ Class {
 }
 
 { #category : #tests }
-CTSkipListTest >> testCrescenzi [
+CTSkipListTest >> sutCrescenzi [
 
-	| collection skiplist |
+	| collection |
 	collection := #( 5 10 16 18 30 41 80 ) asSortedCollection: #<.
 
-	skiplist := CTSkipList
-		            onSortedCollection: collection
-		            lowerBound: Float negativeInfinity
-		            upperBound: Float infinity;
-		            yourself.
+	^ CTSkipList
+		  onSortedCollection: collection
+		  lowerBound: Float negativeInfinity
+		  upperBound: Float infinity
+]
 
-	^ self exportSlotsGraphOf: skiplist
+{ #category : #tests }
+CTSkipListTest >> testCrescenzi [
+
+	self exportSlotsGraphOf: self sutCrescenzi
 ]

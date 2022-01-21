@@ -17,5 +17,6 @@ BaselineOfContainersSkipList >> baseline: spec [
 		"Packages"
 		spec
 			package: 'Containers-SkipList';
+			package: 'Containers-SkipList-Visualizations';
 			package: 'Containers-SkipList-Tests' ]
 ]

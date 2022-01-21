@@ -28,6 +28,94 @@ CTSkipListTest >> testCrescenzi [
 ]
 
 { #category : #tests }
+CTSkipListTest >> testInspectBigList [
+
+	| elements random skiplist n |
+	random := Random seed: 541.
+	n := 100.
+	elements := (1 to: n) asArray
+		            shuffleBy: random;
+		            yourself.
+
+	skiplist := elements
+		            inject: (CTSkipList
+				             onSortedCollection: (SortedCollection sortUsing: #<)
+				             lowerBound: Float negativeInfinity
+				             upperBound: Float infinity)
+		            into: [ :aSkiplist :each | 
+			            aSkiplist
+				            add: each;
+				            yourself ].
+
+	self exportShapeOf: skiplist accessorBlock: #asShapeListWithOutliners.
+
+	self exportSlotsGraphOf: n pathSuffix: 'n'
+]
+
+{ #category : #tests }
+CTSkipListTest >> testProfileAddingFromScratch [
+
+	| elements random |
+	random := Random seed: 541.
+	elements := (1 to: 10) asArray
+		            shuffleBy: random;
+		            yourself.
+
+	^ self
+		  compiledMethods: { 
+				  (CTSkipList >> #add:).
+				  (CTSkipList >> #add:atHeight:).
+				  (CTSkipList >> #add:atHeight:predecessors:) }
+		  wrapping: [ 
+			  elements
+				  inject: (CTSkipList
+						   onSortedCollection: (SortedCollection sortUsing: #<)
+						   lowerBound: Float negativeInfinity
+						   upperBound: Float infinity)
+				  into: [ :skiplist :each | 
+					  skiplist
+						  add: each;
+						  yourself ] ]
+		  then: [ :skiplist :observedData | 
+			  | presenter tree builder |
+			  tree := observedData tree.
+
+			  builder := self umlSequenceDiagramBuilder:
+				             RSUMLSequenceBuilder new.
+
+			  presenter := (MTOverviewSpPresenter on: observedData)
+				               umlSequenceDiagramBuilder: builder;
+				               openWithSpec;
+				               yourself.
+
+			  "self
+				  assert: tree size equals: 18;
+				  assert: inversions equals: { 
+						  (1 -> 2).
+						  (1 -> 4).
+						  (3 -> 4) }.
+"
+			  "The count for #nextPut:inversion: equals the count of inversions."
+			  "self
+				  assert:
+				  (observedData statistics at: Stream >> #nextPut:inversion:)
+					  count
+				  equals: inversions size."
+
+			  self
+				  exportShapeOf: tree
+				  accessorBlock: [ :aTree | 
+					  aTree
+						  asShapeUMLSequenceDiagram: builder
+						  metadata: observedData metadata ]
+				  pathSuffix: 'sequence-diagram'.
+
+			  self
+				  exportSlotsGraphOf: skiplist;
+				  exportSlotsGraphOf: elements pathSuffix: 'elements' ]
+]
+
+{ #category : #tests }
 CTSkipListTest >> testProfileAdditionOf35 [
 
 	| key |

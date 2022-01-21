@@ -112,16 +112,10 @@ CTSkipList class >> onSortedCollection: aCollection lowerBound: lower upperBound
 		  yourself
 ]
 
-{ #category : #visiting }
-CTSkipList >> acceptSlotDescriptorsVisitor: aVisitor [
-
-	^ aVisitor visitSkipList: self
-]
-
 { #category : #accessing }
 CTSkipList >> add: key [
 
-	self add: key atHeight: random next
+	^ self add: key atHeight: random next
 ]
 
 { #category : #accessing }
@@ -155,7 +149,9 @@ CTSkipList >> add: key atHeight: r [
 					            yourself);
 			           yourself.
 
-		lists := newList ~~> lists ]
+		lists := newList ~~> lists ].
+
+	^ key
 ]
 
 { #category : #accessing }
@@ -180,60 +176,6 @@ CTSkipList >> add: key atHeight: r predecessors: aLink [
 		predecessors := predecessors nextLink ].
 
 	^ newLink
-]
-
-{ #category : #converting }
-CTSkipList >> asShapeList: shapeBlock [
-
-	| shapes relation ordered edges lineBuilder |
-	ordered := OrderedCollection new.
-	edges := OrderedCollection new.
-	shapes := IdentityDictionary new.
-	relation := IdentityDictionary new.
-
-	lists reversed do: [ :list | 
-		| each value nextValue |
-		each := list nextLink.
-		[ 
-		value := each value.
-		nextValue := each nextLink value.
-
-		shapes at: value ifAbsentPut: [ 
-			| shape |
-			shape := shapeBlock value: value.
-			ordered add: shape.
-			shape
-				draggable;
-				yourself ].
-
-		nextValue == upperBound ] whileFalse: [ 
-			| rel |
-			rel := relation at: value ifAbsentPut: [ IdentitySet new ].
-			rel add: nextValue.
-			each := each nextLink ] ].
-
-	lineBuilder := RSLineBuilder directedBezier
-		               withBorderAttachPoint;
-		               yourself.
-
-	RSVerticalLineLayout on: ordered.
-
-	relation keysAndValuesDo: [ :key :neighborhood | 
-		neighborhood do: [ :each | 
-			edges add:
-				(lineBuilder edgeFrom: (shapes at: key) to: (shapes at: each)) ] ].
-
-	^ RSComposite new
-		  model: self;
-		  shapes: ordered , edges;
-		  yourself
-]
-
-{ #category : #converting }
-CTSkipList >> asShapeListWithOutliners [
-
-	^ self asShapeList: [ :each | 
-		  each asShapeSlotsDfsTree: each slotDescriptorsContext ]
 ]
 
 { #category : #accessing }

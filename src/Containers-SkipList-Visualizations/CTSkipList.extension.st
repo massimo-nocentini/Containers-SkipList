@@ -9,17 +9,24 @@ CTSkipList >> acceptSlotDescriptorsVisitor: aVisitor [
 { #category : #'*Containers-SkipList-Visualizations' }
 CTSkipList >> asShapeList: shapeBlock [
 
-	| shapes relation ordered edges lineBuilder |
+	| shapes relation ordered edges lineBuilder count height |
 	ordered := OrderedCollection new.
 	edges := OrderedCollection new.
 	shapes := IdentityDictionary new.
 	relation := IdentityDictionary new.
 
+	count := IdentityDictionary new.
+
+	height := self height.
+
 	lists reversed do: [ :list | 
-		| each value |
+		| each value c |
 		each := list.
 		[ 
 		value := each value.
+
+		c := count at: value ifAbsent: [ 0 ].
+		count at: value put: c + 1.
 
 		shapes at: value ifAbsentPut: [ 
 			| shape |
@@ -33,7 +40,7 @@ CTSkipList >> asShapeList: shapeBlock [
 			| rel nextValue |
 			nextValue := each nextLink value.
 			rel := relation at: value ifAbsentPut: [ IdentitySet new ].
-			rel add: nextValue.
+			rel add: nextValue -> rel size.
 			each := each nextLink ] ].
 
 	lineBuilder := RSLineBuilder directedBezier
@@ -45,9 +52,14 @@ CTSkipList >> asShapeList: shapeBlock [
 		applyOn: ordered.
 
 	relation keysAndValuesDo: [ :key :neighborhood | 
-		neighborhood do: [ :each | 
-			edges add:
-				(lineBuilder edgeFrom: (shapes at: key) to: (shapes at: each)) ] ].
+		neighborhood do: [ :anAssoc | 
+			| edge |
+			edge := lineBuilder
+				        edgeFrom: (shapes at: key)
+				        to: (shapes at: anAssoc key).
+			height - anAssoc value + 1 timesRepeat: [ 
+				edge color: edge color lighter ].
+			edges add: edge ] ].
 
 	^ RSComposite new
 		  model: self;

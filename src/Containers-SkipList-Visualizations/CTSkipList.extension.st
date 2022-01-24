@@ -9,7 +9,7 @@ CTSkipList >> acceptSlotDescriptorsVisitor: aVisitor [
 { #category : #'*Containers-SkipList-Visualizations' }
 CTSkipList >> asShapeList: shapeBlock [
 
-	| shapes relation ordered edges lineBuilder count height |
+	| shapes relation ordered edges lineBuilder count height colors |
 	ordered := OrderedCollection new.
 	edges := OrderedCollection new.
 	shapes := IdentityDictionary new.
@@ -18,6 +18,8 @@ CTSkipList >> asShapeList: shapeBlock [
 	count := IdentityDictionary new.
 
 	height := self height.
+
+	colors := NSScale ordinalColored: height.
 
 	lists reversed do: [ :list | 
 		| each value c |
@@ -57,8 +59,10 @@ CTSkipList >> asShapeList: shapeBlock [
 			edge := lineBuilder
 				        edgeFrom: (shapes at: key)
 				        to: (shapes at: anAssoc key).
-			height - anAssoc value + 1 timesRepeat: [ 
-				edge color: edge color lighter ].
+			"height - anAssoc value + 1 timesRepeat: [ 
+				edge color: edge color lighter ]."
+			edge color: (colors scale: anAssoc value).
+			edge width: anAssoc value + 1 * Float goldenRatio.
 			edges add: edge ] ].
 
 	^ RSComposite new

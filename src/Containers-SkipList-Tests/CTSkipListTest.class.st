@@ -85,7 +85,7 @@ CTSkipListTest >> testProfileAddingFromScratch [
 
 			  presenter := (MTOverviewSpPresenter on: observedData)
 				               umlSequenceDiagramBuilder: builder;
-				               openWithSpec;
+				               open;
 				               yourself.
 
 			  "self
@@ -138,7 +138,7 @@ CTSkipListTest >> testProfileAdditionOf35 [
 
 			  presenter := (MTOverviewSpPresenter on: observedData)
 				               umlSequenceDiagramBuilder: builder;
-				               openWithSpec;
+				               open;
 				               yourself.
 
 			  "self
@@ -194,7 +194,7 @@ CTSkipListTest >> testProfileInclusion [
 
 			  presenter := (MTOverviewSpPresenter on: observedData)
 				               umlSequenceDiagramBuilder: builder;
-				               openWithSpec;
+				               open;
 				               yourself.
 
 			  "self

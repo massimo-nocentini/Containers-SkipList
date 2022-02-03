@@ -74,6 +74,11 @@ CTSkipList >> asShapeList: shapeBlock [
 { #category : #'*Containers-SkipList-Visualizations' }
 CTSkipList >> asShapeListWithOutliners [
 
-	^ self asShapeList: [ :each | 
-		  each asShapeSlotsDfsTree: each slotDescriptorsContext ]
+	^ self asShapeListWithOutliners: (CTDfsWalker on: self)
+]
+
+{ #category : #'*Containers-SkipList-Visualizations' }
+CTSkipList >> asShapeListWithOutliners: aDfsWalker [
+
+	^ self asShapeList: [ :each | each asShapeSlotsDfsTree: aDfsWalker ]
 ]

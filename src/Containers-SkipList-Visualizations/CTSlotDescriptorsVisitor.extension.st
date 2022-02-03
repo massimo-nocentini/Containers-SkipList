@@ -5,7 +5,7 @@ CTSlotDescriptorsVisitor >> visitSkipList: aSkipList [
 
 	^ (self visitObject: aSkipList) , { 
 		  #height asSlotDescriptor.
-		  (#asShapeListWithOutliners asSlotDescriptor
+		  (#asShapeListWithOutliners: asSlotDescriptor
 			   inline;
 			   quote) }
 ]

@@ -74,7 +74,7 @@ CTSkipList >> asShapeList: shapeBlock [
 { #category : #'*Containers-SkipList-Visualizations' }
 CTSkipList >> asShapeListWithOutliners [
 
-	^ self asShapeListWithOutliners: (CTDfsWalker on: self)
+	^ self asShapeListWithOutliners: CTDfsWalker new
 ]
 
 { #category : #'*Containers-SkipList-Visualizations' }

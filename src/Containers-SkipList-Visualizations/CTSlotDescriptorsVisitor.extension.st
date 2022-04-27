@@ -4,8 +4,8 @@ Extension { #name : #CTSlotDescriptorsVisitor }
 CTSlotDescriptorsVisitor >> visitSkipList: aSkipList [
 
 	^ (self visitObject: aSkipList) , { 
-		  (self newSlotDescriptor selector: #height).
-		  (self newSlotDescriptor
+		  (self newSlotDescriptorSelector selector: #height).
+		  (self newSlotDescriptorSelector
 			   selector: #asShapeListWithOutliners:;
 			   inline;
 			   quote) }

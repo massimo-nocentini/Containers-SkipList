@@ -26,8 +26,8 @@ CTSkipList class >> onSortedCollection: aCollection lowerBound: lower upperBound
 { #category : #creation }
 CTSkipList class >> onSortedCollection: aCollection lowerBound: lower upperBound: upper atRandom: aRandom [
 
-	| brgc lists nothing cleanLists lowerJust upperJust times |
-	nothing := Maybe nothing.
+	| brgc lists cleanLists lowerJust upperJust times nothingObject |
+	nothingObject := self nothing.
 	lowerJust := lower just.
 	upperJust := upper just.
 
@@ -59,7 +59,7 @@ CTSkipList class >> onSortedCollection: aCollection lowerBound: lower upperBound
 
 			eachForList := left > 0
 				               ifTrue: [ each just ]
-				               ifFalse: [ nothing ].
+				               ifFalse: [ nothingObject ].
 
 			brgc at: index put: left - 1.
 
@@ -93,7 +93,7 @@ CTSkipList class >> onSortedCollection: aCollection lowerBound: lower upperBound
 			| each |
 			each := list nextLink.
 
-			[ each value == nothing ] whileTrue: [ each := each nextLink ].
+			[ each value == nothingObject ] whileTrue: [ each := each nextLink ].
 
 			list := list
 				        value: list value content;

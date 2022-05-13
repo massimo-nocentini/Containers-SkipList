@@ -27,7 +27,7 @@ CTSkipList class >> onSortedCollection: aCollection lowerBound: lower upperBound
 CTSkipList class >> onSortedCollection: aCollection lowerBound: lower upperBound: upper atRandom: aRandom [
 
 	| brgc lists cleanLists lowerJust upperJust times nothingObject |
-	nothingObject := self nothing.
+	nothingObject := CTCategoryMaybe nothing.
 	lowerJust := lower just.
 	upperJust := upper just.
 

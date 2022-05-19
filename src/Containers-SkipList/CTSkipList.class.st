@@ -28,8 +28,8 @@ CTSkipList class >> onSortedCollection: aCollection lowerBound: lower upperBound
 
 	| brgc lists cleanLists lowerJust upperJust times nothingObject |
 	nothingObject := CTCategoryMaybe nothing.
-	lowerJust := lower just.
-	upperJust := upper just.
+	lowerJust := CTCategory just: lower.
+	upperJust := CTCategory just: upper.
 
 	brgc := aCollection size asBRGCCollection.
 
@@ -58,7 +58,7 @@ CTSkipList class >> onSortedCollection: aCollection lowerBound: lower upperBound
 			left := brgc at: index.
 
 			eachForList := left > 0
-				               ifTrue: [ each just ]
+				               ifTrue: [ CTCategory just: each ]
 				               ifFalse: [ nothingObject ].
 
 			brgc at: index put: left - 1.

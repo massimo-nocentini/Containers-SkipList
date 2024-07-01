@@ -1,6 +1,6 @@
 Class {
-	#name : #CTSkipList,
-	#superclass : #Object,
+	#name : 'CTSkipList',
+	#superclass : 'Object',
 	#instVars : [
 		'lists',
 		'sortBlock',
@@ -8,22 +8,23 @@ Class {
 		'upperBound',
 		'random'
 	],
-	#category : #'Containers-SkipList'
+	#category : 'Containers-SkipList',
+	#package : 'Containers-SkipList'
 }
 
-{ #category : #creation }
+{ #category : 'creation' }
 CTSkipList class >> onSortedCollection: aCollection lowerBound: lower upperBound: upper [
 
 	^ self
 		  onSortedCollection: aCollection
 		  lowerBound: lower
 		  upperBound: upper
-		  atRandom: ((RandomGeometric seed: 541)
+		  atRandom: ((RandomGeometric seed: Number firstCarmichaelNumber)
 				   p: 0.5;
 				   yourself)
 ]
 
-{ #category : #creation }
+{ #category : 'creation' }
 CTSkipList class >> onSortedCollection: aCollection lowerBound: lower upperBound: upper atRandom: aRandom [
 
 	| brgc lists cleanLists lowerJust upperJust times nothingObject |
@@ -112,13 +113,13 @@ CTSkipList class >> onSortedCollection: aCollection lowerBound: lower upperBound
 		  yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CTSkipList >> add: key [
 
 	^ self add: key atHeight: random next
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CTSkipList >> add: key atHeight: r [
 
 	| predecessors height newLink |
@@ -154,7 +155,7 @@ CTSkipList >> add: key atHeight: r [
 	^ key
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CTSkipList >> add: key atHeight: r predecessors: aLink [
 
 	| newLink predecessors |
@@ -178,13 +179,13 @@ CTSkipList >> add: key atHeight: r predecessors: aLink [
 	^ newLink
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CTSkipList >> height [
 
 	^ lists sizeBlock: [ :link | link nextLink ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 CTSkipList >> includes: aKey equalityBlock: eqBlock [
 
 	| link |
@@ -192,19 +193,19 @@ CTSkipList >> includes: aKey equalityBlock: eqBlock [
 	^ eqBlock value: link nextLink value value: aKey
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CTSkipList >> lists: anObject [
 
 	lists := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CTSkipList >> lowerBound: anObject [
 
 	lowerBound := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CTSkipList >> predecessors: key [
 
 	| link predecessors |
@@ -222,19 +223,19 @@ CTSkipList >> predecessors: key [
 	^ predecessors
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CTSkipList >> random: anObject [
 
 	random := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CTSkipList >> sortBlock: anObject [
 
 	sortBlock := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CTSkipList >> upperBound: anObject [
 
 	upperBound := anObject

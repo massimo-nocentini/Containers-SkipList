@@ -2,14 +2,15 @@
 A CTSkipListTest is a test class for testing the behavior of CTSkipList
 "
 Class {
-	#name : #CTSkipListTest,
-	#superclass : #TestCase,
+	#name : 'CTSkipListTest',
+	#superclass : 'TestCase',
 	#traits : 'TIceImagesExporting + MTTProfilingCopying + MTTUmlSequenceDiagramBuilderWithOutliners',
 	#classTraits : 'TIceImagesExporting classTrait + MTTProfilingCopying classTrait + MTTUmlSequenceDiagramBuilderWithOutliners classTrait',
-	#category : #'Containers-SkipList-Tests'
+	#category : 'Containers-SkipList-Tests',
+	#package : 'Containers-SkipList-Tests'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 CTSkipListTest >> sutCrescenzi [
 
 	| collection |
@@ -21,17 +22,17 @@ CTSkipListTest >> sutCrescenzi [
 		  upperBound: Float infinity
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CTSkipListTest >> testCrescenzi [
 
 	self exportSlotsGraphOf: self sutCrescenzi
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CTSkipListTest >> testInspectBigList [
 
 	| elements random skiplist n |
-	random := Random seed: 541.
+	random := Random seed: Number firstCarmichaelNumber.
 	n := 100.
 	elements := (1 to: n) asArray
 		            shuffleBy: random;
@@ -42,7 +43,7 @@ CTSkipListTest >> testInspectBigList [
 				             onSortedCollection: (SortedCollection sortUsing: #<)
 				             lowerBound: Float negativeInfinity
 				             upperBound: Float infinity)
-		            into: [ :aSkiplist :each | 
+		            into: [ :aSkiplist :each |
 			            aSkiplist
 				            add: each;
 				            yourself ].
@@ -52,31 +53,31 @@ CTSkipListTest >> testInspectBigList [
 	self exportSlotsGraphOf: n pathSuffix: 'n'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CTSkipListTest >> testProfileAddingFromScratch [
 
 	| elements random |
-	random := Random seed: 541.
+	random := Random seed: Number firstCarmichaelNumber.
 	elements := (1 to: 10) asArray
 		            shuffleBy: random;
 		            yourself.
 
 	^ self
-		  compiledMethods: { 
+		  compiledMethods: {
 				  (CTSkipList >> #add:).
 				  (CTSkipList >> #add:atHeight:).
 				  (CTSkipList >> #add:atHeight:predecessors:) }
-		  wrapping: [ 
+		  wrapping: [
 			  elements
 				  inject: (CTSkipList
 						   onSortedCollection: (SortedCollection sortUsing: #<)
 						   lowerBound: Float negativeInfinity
 						   upperBound: Float infinity)
-				  into: [ :skiplist :each | 
+				  into: [ :skiplist :each |
 					  skiplist
 						  add: each;
 						  yourself ] ]
-		  then: [ :skiplist :observedData | 
+		  then: [ :skiplist :observedData |
 			  | presenter tree builder |
 			  tree := observedData tree.
 
@@ -104,7 +105,7 @@ CTSkipListTest >> testProfileAddingFromScratch [
 
 			  self
 				  exportShapeOf: tree
-				  accessorBlock: [ :aTree | 
+				  accessorBlock: [ :aTree |
 					  aTree
 						  asShapeUMLSequenceDiagram: builder
 						  metadata: observedData metadata ]
@@ -115,7 +116,7 @@ CTSkipListTest >> testProfileAddingFromScratch [
 				  exportSlotsGraphOf: elements pathSuffix: 'elements' ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CTSkipListTest >> testProfileAdditionOf35 [
 
 	| key |
@@ -168,7 +169,7 @@ CTSkipListTest >> testProfileAdditionOf35 [
 				  exportSlotsGraphOf: key pathSuffix: 'key' ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CTSkipListTest >> testProfileInclusion [
 
 	| skipList key |

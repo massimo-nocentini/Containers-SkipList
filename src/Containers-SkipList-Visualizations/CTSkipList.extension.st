@@ -34,8 +34,9 @@ CTSkipList >> asShapeList: shapeBlock [
 			| shape |
 			shape := shapeBlock value: value.
 			ordered add: shape.
+			"The shapes of the outliners have draggable children already: keep the Pharo 13 behaviour, where Roassal did not check it."
 			shape
-				draggable;
+				addInteraction: RSDraggable new noValidateChildrenEvents;
 				yourself ].
 
 		each nextLink ] whileNotNil: [ 

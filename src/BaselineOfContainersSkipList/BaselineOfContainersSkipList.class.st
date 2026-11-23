@@ -1,3 +1,10 @@
+"
+I am the baseline of the skip lists. I depend on `ContainersEssentials`, `ContainersLinks` and `MethodTrackerMN`, and load three packages:
+
+- `Containers-SkipList`, the class `CTSkipList`.
+- `Containers-SkipList-Visualizations`, its shapes.
+- `Containers-SkipList-Tests`, its tests.
+"
 Class {
 	#name : #BaselineOfContainersSkipList,
 	#superclass : #BaselineOf,

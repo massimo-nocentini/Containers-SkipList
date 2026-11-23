@@ -1,3 +1,33 @@
+"
+I am a skip list: sorted lists one above the other, where the lowest one has all the objects and each other one has some of the objects of the list below.
+
+Each list is a chain of `CTDoubleValueLink` objects, from `lowerBound` to `upperBound`. The `nextLink` goes to the next object of the list, and the `previousLink` to the same object in the list below. The `height` is the number of my lists.
+
+- `onSortedCollection:lowerBound:upperBound:`, on my class side, makes a skip list with the objects of a `SortedCollection`, whose sort block becomes mine.
+- `add:` adds an object to as many lists, from the lowest one, as my `random` says, and `add:atHeight:` to a given number of them. When the number is larger than my height, one new list goes on the top.
+- `includes:equalityBlock:` looks for a key. The block compares the object found with the key.
+- `predecessors:` answers the links that come before a key, the one of the lowest list first.
+
+```smalltalk
+| skipList |
+skipList := CTSkipList
+	onSortedCollection: (#( 5 10 16 18 ) asSortedCollection: #<)
+	lowerBound: Float negativeInfinity
+	upperBound: Float infinity.
+skipList add: 12.
+skipList includes: 12 equalityBlock: [ :a :b | a = b ]. ""true""
+skipList includes: 13 equalityBlock: [ :a :b | a = b ] ""false""
+```
+
+The sorted collection must have a sort block, and a skip list made from an empty one can be searched only after the first `add:`.
+
+| Instance variable | What it holds |
+|:--|:--|
+| `lists` | the links whose values are the first links of the lists, the highest one first |
+| `sortBlock` | the block that compares two objects |
+| `lowerBound`, `upperBound` | the values of the first and the last links of every list |
+| `random` | the generator of the heights, a `RandomGeometric` with `p` 0.5 unless given |
+"
 Class {
 	#name : 'CTSkipList',
 	#superclass : 'Object',

@@ -1,5 +1,5 @@
 "
-A CTSkipListTest is a test class for testing the behavior of CTSkipList
+A `CTSkipListTest` is a test class for testing the behavior of `CTSkipList`
 "
 Class {
 	#name : 'CTSkipListTest',
